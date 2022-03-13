@@ -17,27 +17,27 @@ restartBtn.addEventListener('click', () => {
 await addSwipeListeners();
 
 async function addSwipeListeners(){
-    window.addEventListener('swiped-left', function (e) {
+    window.addEventListener('swiped-left', async function (e) {
         if (canMoveLeft()) {
-            moveLeft();
+            await moveLeft();
             afterUserInput();
         }
     });
-    window.addEventListener('swiped-right', function (e) {
+    window.addEventListener('swiped-right', async function (e) {
         if (canMoveRight()) {
-            moveRight();
+            await moveRight();
             afterUserInput();
         }
     });
-    window.addEventListener('swiped-up', function (e) {
+    window.addEventListener('swiped-up', async function (e) {
         if (canMoveUp()) {
-            moveUp();
+            await moveUp();
             afterUserInput();
         }
     });
-    window.addEventListener('swiped-down', function (e) {
+    window.addEventListener('swiped-down', async function (e) {
         if (canMoveDown()) {
-            moveDown();
+            await moveDown();
             afterUserInput();
         }
     });
