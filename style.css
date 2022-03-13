@@ -1,73 +1,73 @@
 *, *::before, *::after {
-    box-sizing: border-box;
-    font-family: "roboto", sans-serif;
-  }
-  
-  body {
-    overflow:hidden;
-    background-color: #333;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    margin: 0;
-    font-size: 7.5vmin;
-    flex-direction: column;
-  }
-  
-  .flex{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 90%;
-  }
+  box-sizing: border-box;
+  font-family: "roboto", sans-serif;
+}
 
-  #game-board {
-    display: grid;
-    grid-template-columns: repeat(var(--grid-size), var(--cell-size));
-    grid-template-rows: repeat(var(--grid-size), var(--cell-size));
-    background-color: #CCC;
-    gap: var(--cell-gap);
-    border-radius: 1vmin;
-    padding: var(--cell-gap);
-    position: relative;
-  }
-  
-  .cell {
-    background-color: #AAA;
-    border-radius: 1vmin;
-  }
-  
-  .tile {
-    user-select: none;
-    position: absolute;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: var(--cell-size);
-    height: var(--cell-size);
-    background-color: red;
-    border-radius: 1vmin;
-    top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
-    left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
-    font-weight: bold;
-    background-color: hsl(200, 50%, var(--background-lightness));
-    color: hsl(200, 25%, var(--text-lightness));
-    animation: show 200ms ease-in-out;
-    transition: 100ms ease-in-out;
-  }
-  
-  .header {
-    display: flex;
-    padding: 5px 10px;
-    background-color: #AAA;
-    color: #f3f3f3;
-    width: 100%;
-    border-radius: 0 0 5px 5px;
-    font-size: 0.6em;
-    justify-content: space-between;
-  }
-  
-#restart-btn{
+body {
+  overflow: hidden;
+  background-color: #333;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-size: 7.5vmin;
+  flex-direction: column;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 90%;
+}
+
+#game-board {
+  display: grid;
+  grid-template-columns: repeat(var(--grid-size), var(--cell-size));
+  grid-template-rows: repeat(var(--grid-size), var(--cell-size));
+  background-color: #CCC;
+  gap: var(--cell-gap);
+  border-radius: 1vmin;
+  padding: var(--cell-gap);
+  position: relative;
+}
+
+.cell {
+  background-color: #AAA;
+  border-radius: 1vmin;
+}
+
+.tile {
+  user-select: none;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: var(--cell-size);
+  height: var(--cell-size);
+  background-color: red;
+  border-radius: 1vmin;
+  top: calc(var(--y) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+  left: calc(var(--x) * (var(--cell-size) + var(--cell-gap)) + var(--cell-gap));
+  font-weight: bold;
+  background-color: hsl(200, 50%, var(--background-lightness));
+  color: hsl(200, 25%, var(--text-lightness));
+  animation: show 200ms ease-in-out;
+  transition: 100ms ease-in-out;
+}
+
+.header {
+  display: flex;
+  padding: 5px 10px;
+  background-color: #AAA;
+  color: #f3f3f3;
+  width: 100%;
+  border-radius: 0 0 5px 5px;
+  font-size: 0.6em;
+  justify-content: space-between;
+}
+
+#restart-btn {
   display: flex;
   align-items: center;
   gap: 5px;
@@ -75,13 +75,23 @@
   user-select: none;
 }
 
-  .header-right {
-    float: right;
-  }
+.header-right {
+  float: right;
+}
 
-  @keyframes show {
-    0% {
-      opacity: .5;
-      transform: scale(0);
-    }
+.best-score {
+  display: flex;
+  justify-content: center;
+}
+
+.current-score{
+  display: flex;
+  justify-content: center;
+}
+
+@keyframes show {
+  0% {
+    opacity: .5;
+    transform: scale(0);
   }
+}
