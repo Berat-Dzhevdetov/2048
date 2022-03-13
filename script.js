@@ -1,47 +1,58 @@
 import Grid from "./classes/Grid.js";
 import Tile from "./classes/Tile.js";
+import LocalStorageHelper from "./classes/LocalStorageHelper.js";
 
+let localStorageHelper = new LocalStorageHelper();
 const gameBoard = document.getElementById("game-board");
 
-const grid = new Grid(gameBoard);
 
-grid.randomEmptyCell().tile = new Tile(gameBoard);
-grid.randomEmptyCell().tile = new Tile(gameBoard);
+let grid = startGame(gameBoard);
 
-setupInput();
+function startGame(gameBoard) {
+    let bestScore = localStorageHelper.getBestScore();
+    //add to dom
+
+    gameBoard.innerHTML = '';
+    let grid = new Grid(gameBoard);
+    
+    grid.randomEmptyCell().tile = new Tile(gameBoard);
+    grid.randomEmptyCell().tile = new Tile(gameBoard);
+    setupInput();
+    return grid;
+}
 
 function setupInput() {
     window.addEventListener("keydown", handleInput, { once: true });
 }
 
 async function handleInput(e) {
-    switch (e.key) {
-        case "ArrowUp":
-        case "W":
+    switch (e.key.toLowerCase()) {
+        case "arrowup":
+        case "w":
             if (!canMoveUp()) {
                 setupInput();
                 return;
             }
             await moveUp();
             break;
-        case "ArrowDown":
-        case "S":
+        case "arrowdown":
+        case "s":
             if (!canMoveDown()) {
                 setupInput();
                 return;
             }
             await moveDown();
             break;
-        case "ArrowLeft":
-        case "A":
+        case "arrowleft":
+        case "a":
             if (!canMoveLeft()) {
                 setupInput();
                 return;
             }
             await moveLeft();
             break;
-        case "ArrowRight":
-        case "D":
+        case "arrowright":
+        case "d":
             if (!canMoveRight()) {
                 setupInput();
                 return;
@@ -58,6 +69,48 @@ async function handleInput(e) {
     const newTile = new Tile(gameBoard);
     grid.randomEmptyCell().tile = newTile;
 
+    if (true) { //(!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
+        newTile.waitForTransition(true).then(() => {
+            let currentScore = grid.score();
+            let bestScore = localStorageHelper.getBestScore();
+
+            let obj = {};
+
+            if (currentScore > bestScore) {
+                localStorageHelper.saveBestScore(currentScore);
+                obj.title = "Congratulations!";
+                obj.text = `New best record: ${currentScore}`;
+            } else if (currentScore == bestScore) {
+                obj.title = "Almost!";
+                obj.text = 'You almost broke your record';
+            } else {
+                obj.title = "Game Over!";
+                obj.text = `You did: ${currentScore}<br>Your best score: ${bestScore}`;
+            }
+
+            Swal.fire({
+                title: obj.title,
+                confirmButtonText: 'Try again!',
+                background: '#333',
+                color: '#f3f3f3',
+                confirmButtonColor: '#191414',
+                html: obj.text
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Starting new game!',
+                        showConfirmButton: false,
+                        timer: 1500
+                    });
+                    grid = startGame(gameBoard);
+                } else if (result.isDenied) {
+                    Swal.fire('Changes are not saved', '', 'info')
+                }
+            })
+        });
+        return;
+    }
     setupInput();
 }
 

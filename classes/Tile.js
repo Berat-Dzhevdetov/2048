@@ -4,18 +4,18 @@ export default class Tile {
     #y
     #value
 
-    constructor(tileContainer, value = Math.random() > .5 ? 2 : 4) {
+    constructor(tileContainer, value = Math.random() > .3 ? 2 : 4) {
         this.#tileElement = document.createElement("div");
         this.#tileElement.classList.add('tile');
         tileContainer.append(this.#tileElement);
         this.value = value;
     }
 
-    get value(){
+    get value() {
         return this.#value;
     }
-    
-    set value(v){
+
+    set value(v) {
         this.#value = v;
         this.#tileElement.textContent = v;
         const power = Math.log2(v);
@@ -34,13 +34,13 @@ export default class Tile {
         this.#tileElement.style.setProperty("--y", value);
     }
 
-    remove(){
+    remove() {
         this.#tileElement.remove();
     }
 
-    waitForTransition(){
+    waitForTransition(animation = false) {
         return new Promise(resolve => {
-            this.#tileElement.addEventListener("transitionend", resolve, { once: true });
+            this.#tileElement.addEventListener(animation ? "animationend" : "transitionend", resolve, { once: true });
         });
     }
 }

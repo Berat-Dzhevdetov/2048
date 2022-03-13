@@ -37,6 +37,12 @@ export default class Grid {
         return this.#cells.filter(cell => cell.tile == null);
     }
 
+    score() {
+        return this.#cells.filter(cell => cell.tile != null && cell.tile.value > 2).reduce((ac, cell) => {
+            return ac + cell.tile.value;
+        }, 0);
+    }
+
     randomEmptyCell() {
         const randomIndex = Math.floor(Math.random() * this.#emptyCells.length);
         return this.#emptyCells[randomIndex];
