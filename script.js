@@ -1,16 +1,23 @@
 import Grid from "./classes/Grid.js";
 import Tile from "./classes/Tile.js";
 import LocalStorageHelper from "./classes/LocalStorageHelper.js";
-
 let localStorageHelper = new LocalStorageHelper();
+
+const restartBtn = document.getElementById("restart-btn");
+const bestScoreEl = document.getElementById("best-score");
+const curentScoreEl = document.getElementById("curent-score");
 const gameBoard = document.getElementById("game-board");
 
-
 let grid = startGame(gameBoard);
+restartBtn.addEventListener('click',() => {
+    grid = startGame(gameBoard);
+});
+
 
 function startGame(gameBoard) {
     let bestScore = localStorageHelper.getBestScore();
-    //add to dom
+    bestScoreEl.innerHTML = bestScore;
+    curentScoreEl.innerHTML = '0';
 
     gameBoard.innerHTML = '';
     let grid = new Grid(gameBoard);
@@ -69,7 +76,7 @@ async function handleInput(e) {
     const newTile = new Tile(gameBoard);
     grid.randomEmptyCell().tile = newTile;
 
-    if (true) { //(!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
+    if (!canMoveUp() && !canMoveDown() && !canMoveLeft() && !canMoveRight()) {
         newTile.waitForTransition(true).then(() => {
             let currentScore = grid.score();
             let bestScore = localStorageHelper.getBestScore();
@@ -111,6 +118,7 @@ async function handleInput(e) {
         });
         return;
     }
+    curentScoreEl.innerHTML = grid.score();
     setupInput();
 }
 
