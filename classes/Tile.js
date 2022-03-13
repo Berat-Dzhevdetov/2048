@@ -10,6 +10,10 @@ export default class Tile {
         tileContainer.append(this.#tileElement);
         this.value = value;
     }
+
+    get value(){
+        return this.#value;
+    }
     
     set value(v){
         this.#value = v;
@@ -28,5 +32,15 @@ export default class Tile {
     set y(value) {
         this.#y = value;
         this.#tileElement.style.setProperty("--y", value);
+    }
+
+    remove(){
+        this.#tileElement.remove();
+    }
+
+    waitForTransition(){
+        return new Promise(resolve => {
+            this.#tileElement.addEventListener("transitionend", resolve, { once: true });
+        });
     }
 }
