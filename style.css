@@ -84,9 +84,29 @@ body {
   justify-content: center;
 }
 
-.current-score{
+.current-score {
   display: flex;
   justify-content: center;
+}
+
+.full-screen-btn {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  height: 35px;
+  width: 35px;
+  background: none;
+  outline: none;
+  border: none;
+}
+
+.full-screen-btn img {
+  height: 35px;
+  width: 35px;
+}
+
+.for-full-screen{
+  background-color: #333;
 }
 
 @keyframes show {

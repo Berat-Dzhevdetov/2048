@@ -4,6 +4,7 @@ import LocalStorageHelper from "./classes/LocalStorageHelper.js";
 
 let localStorageHelper = new LocalStorageHelper();
 
+const fullScreenBtn = document.getElementById('full-screen-btn');
 const restartBtn = document.getElementById("restart-btn");
 const bestScoreEl = document.getElementById("best-score");
 const curentScoreEl = document.getElementById("curent-score");
@@ -15,6 +16,10 @@ restartBtn.addEventListener('click', () => {
 });
 
 await addSwipeListeners();
+
+fullScreenBtn.addEventListener('click', () => {
+    document.querySelector('.for-full-screen').requestFullscreen();
+})
 
 async function addSwipeListeners(){
     window.addEventListener('swiped-left', async function (e) {
