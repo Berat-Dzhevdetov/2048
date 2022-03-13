@@ -14,6 +14,34 @@ restartBtn.addEventListener('click', () => {
     grid = startGame(gameBoard);
 });
 
+await addSwipeListeners();
+
+async function addSwipeListeners(){
+    window.addEventListener('swiped-left', function (e) {
+        if (canMoveLeft()) {
+            moveLeft();
+            afterUserInput();
+        }
+    });
+    window.addEventListener('swiped-right', function (e) {
+        if (canMoveRight()) {
+            moveRight();
+            afterUserInput();
+        }
+    });
+    window.addEventListener('swiped-up', function (e) {
+        if (canMoveUp()) {
+            moveUp();
+            afterUserInput();
+        }
+    });
+    window.addEventListener('swiped-down', function (e) {
+        if (canMoveDown()) {
+            moveDown();
+            afterUserInput();
+        }
+    });
+}
 
 function startGame(gameBoard) {
     let bestScore = localStorageHelper.getBestScore();
@@ -72,6 +100,11 @@ async function handleInput(e) {
             return;
     }
 
+    afterUserInput();
+    setupInput();
+}
+
+function afterUserInput(){
     grid.cells.forEach(cell => cell.mergeTiles());
 
     const newTile = new Tile(gameBoard);
@@ -120,7 +153,6 @@ async function handleInput(e) {
         return;
     }
     curentScoreEl.innerHTML = grid.score();
-    setupInput();
 }
 
 function moveUp() {
