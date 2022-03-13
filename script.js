@@ -2,65 +2,6 @@ import Grid from "./classes/Grid.js";
 import Tile from "./classes/Tile.js";
 import LocalStorageHelper from "./classes/LocalStorageHelper.js";
 
-document.addEventListener('touchstart', handleTouchStart, false);
-document.addEventListener('touchmove', handleTouchMove, false);
-
-var xDown = null;
-var yDown = null;
-
-function getTouches(evt) {
-    return evt.touches ||             // browser API
-        evt.originalEvent.touches; // jQuery
-}
-
-function handleTouchStart(evt) {
-    const firstTouch = getTouches(evt)[0];
-    xDown = firstTouch.clientX;
-    yDown = firstTouch.clientY;
-};
-
-async function handleTouchMove(evt) {
-    if (!xDown || !yDown) {
-        return;
-    }
-
-    var xUp = evt.touches[0].clientX;
-    var yUp = evt.touches[0].clientY;
-
-    var xDiff = xDown - xUp;
-    var yDiff = yDown - yUp;
-
-    if (Math.abs(xDiff) > Math.abs(yDiff)) {/*most significant*/
-        if (xDiff > 0) {
-            //right swipe
-            if (canMoveLeft()) {
-                await moveLeft();
-            }
-        } else {
-            //left swipe
-            if (canMoveRight()) {
-                await moveRight();
-            }
-        }
-    } else {
-        if (yDiff > 0) {
-            //down swipe
-            if (canMoveUp()) {
-                await moveUp();
-            }
-        } else {
-            //up swipe
-            if (canMoveDown()) {
-                await moveDown();
-            }
-        }
-    }
-    afterUserInput();
-    /* reset values */
-    xDown = null;
-    yDown = null;
-};
-
 let localStorageHelper = new LocalStorageHelper();
 
 const restartBtn = document.getElementById("restart-btn");
@@ -131,11 +72,6 @@ async function handleInput(e) {
             return;
     }
 
-    afterUserInput();
-    setupInput();
-}
-
-function afterUserInput() {
     grid.cells.forEach(cell => cell.mergeTiles());
 
     const newTile = new Tile(gameBoard);
@@ -184,6 +120,7 @@ function afterUserInput() {
         return;
     }
     curentScoreEl.innerHTML = grid.score();
+    setupInput();
 }
 
 function moveUp() {
