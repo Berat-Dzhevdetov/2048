@@ -140,14 +140,16 @@ function afterUserInput(){
                 background: '#333',
                 color: '#f3f3f3',
                 confirmButtonColor: '#191414',
-                html: obj.text
+                html: obj.text,
+                target: document.querySelector('.for-full-screen')
             }).then((result) => {
                 if (result.isConfirmed) {
                     Swal.fire({
                         icon: 'success',
                         title: 'Starting new game!',
                         showConfirmButton: false,
-                        timer: 1500
+                        timer: 1500,
+                        target: document.querySelector('.for-full-screen')
                     });
                     grid = startGame(gameBoard);
                 } else if (result.isDenied) {
