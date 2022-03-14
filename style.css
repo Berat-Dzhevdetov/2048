@@ -109,8 +109,8 @@ body {
   background-color: #333;
 }
 
-.swal2-container {
-  z-index: 2000;
+.swal-overlay {
+  z-index: 9999999999; !important
 }
 
 @keyframes show {
