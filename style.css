@@ -109,6 +109,10 @@ body {
   background-color: #333;
 }
 
+.swal2-container {
+  z-index: 2000;
+}
+
 @keyframes show {
   0% {
     opacity: .5;
